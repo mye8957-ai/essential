@@ -1,7 +1,7 @@
 // 配置信息 - 已针对你的账户配置
 const CONFIG = {
     repoOwner: 'mye8957-ai',
-    repoName: 'essential',
+    repoName: 'login',
     filePath: 'keys.json',
     branch: 'main'
 };
