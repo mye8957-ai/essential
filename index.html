@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡密生成器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007cba;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #005a87;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e8f5e8;
+            border-radius: 5px;
+            display: none;
+        }
+        .key-display {
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 卡密生成系统</h1>
+        
+        <div class="form-group">
+            <label for="keyType">卡密类型：</label>
+            <select id="keyType">
+                <option value="1day">1天卡密</option>
+                <option value="7day">7天卡密</option>
+                <option value="30day">30天卡密</option>
+                <option value="permanent">永久卡密</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="keyAmount">生成数量：</label>
+            <input type="number" id="keyAmount" value="1" min="1" max="10">
+        </div>
+
+        <div class="form-group">
+            <label for="githubToken">GitHub Token：</label>
+            <input type="password" id="githubToken" placeholder="输入你的GitHub Personal Token">
+        </div>
+
+        <button onclick="generateKeys()">🎯 生成卡密</button>
+        
+        <div id="result" class="result">
+            <h3>✅ 生成的卡密：</h3>
+            <div id="generatedKeys"></div>
+            <button onclick="copyAllKeys()">📋 复制所有卡密</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
