@@ -14,30 +14,38 @@
       "used": true,
       "type": "30day",
       "status": 1,
-      "ban_reason": "违规分享",
+      "ban_reason": "è¿è§åäº«",
       "created_at": "2024-01-14",
       "created_time": "2024-01-14T15:30:00Z",
       "used_by": 123456789,
       "used_at": "2024-01-14T16:00:00Z"
+    },
+    "KEY-INSYTSDV": {
+      "used": false,
+      "type": "1day",
+      "status": 2,
+      "ban_reason": "",
+      "created_at": "2025-11-09",
+      "created_time": "2025-11-09T02:01:04.110Z"
     }
   },
   "settings": {
     "version": "2.1",
     "created_by": "mye8957-ai",
-    "last_updated": "2024-01-15T10:00:00Z",
-    "total_keys": 2,
+    "last_updated": "2025-11-09T02:01:04.110Z",
+    "total_keys": 3,
     "active_keys": 1,
     "banned_keys": 1,
     "used_keys": 1,
     "status_codes": {
-      "1": "封禁",
-      "2": "正常"
+      "1": "å°ç¦",
+      "2": "æ­£å¸¸"
     },
     "key_types": {
-      "1day": "24小时卡密",
-      "7day": "7天卡密",
-      "30day": "30天卡密", 
-      "permanent": "永久卡密"
+      "1day": "24å°æ¶å¡å¯",
+      "7day": "7å¤©å¡å¯",
+      "30day": "30å¤©å¡å¯",
+      "permanent": "æ°¸ä¹å¡å¯"
     }
   },
   "statistics": {
@@ -66,5 +74,6 @@
       }
     },
     "last_reset": "2024-01-01"
-  }
+  },
+  "_sha": "3ed10b7168f2962cd3bd32ef93cef10083399ddb"
 }
