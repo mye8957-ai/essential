@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Essential 卡密生成系统</title>
+    <title>Essential 卡密系统 - 封禁管理</title>
     <style>
         * {
             margin: 0;
@@ -19,7 +19,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
@@ -45,11 +45,28 @@
         }
         
         .content {
-            padding: 40px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .panel {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .panel h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
         }
         
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         label {
@@ -57,108 +74,123 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #2c3e50;
-            font-size: 1.1em;
         }
         
-        select, input {
+        select, input, textarea {
             width: 100%;
-            padding: 15px;
+            padding: 12px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 14px;
             transition: all 0.3s ease;
         }
         
-        select:focus, input:focus {
+        select:focus, input:focus, textarea:focus {
             outline: none;
             border-color: #3498db;
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
         }
         
-        .generate-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
+        .btn {
+            padding: 12px 25px;
             border: none;
-            padding: 18px;
-            font-size: 1.2em;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
-            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
         }
         
-        .generate-btn:hover {
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+        }
+        
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3);
-        }
-        
-        .generate-btn:active {
-            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .result {
-            margin-top: 30px;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 10px;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
             display: none;
         }
         
         .keys-list {
-            margin: 20px 0;
+            margin: 15px 0;
         }
         
         .key-item {
             background: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
             border-left: 4px solid #3498db;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .key-item.banned {
+            border-left-color: #e74c3c;
+            background: #fee;
         }
         
         .key-text {
             font-family: 'Courier New', monospace;
-            font-size: 1.2em;
             font-weight: bold;
             color: #2c3e50;
         }
         
-        .copy-btn {
-            background: #27ae60;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.9em;
+        .key-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
         }
         
-        .copy-all-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            margin-top: 15px;
+        .status-normal {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-banned {
+            background: #f8d7da;
+            color: #721c24;
         }
         
         .json-output {
             background: #2c3e50;
             color: #ecf0f1;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
             font-family: 'Courier New', monospace;
             white-space: pre-wrap;
             word-wrap: break-word;
+            font-size: 12px;
             display: none;
         }
         
@@ -167,7 +199,8 @@
             border: 1px solid #ffeaa7;
             border-radius: 8px;
             padding: 20px;
-            margin-top: 30px;
+            margin-top: 20px;
+            grid-column: 1 / -1;
         }
         
         .instructions h3 {
@@ -183,51 +216,85 @@
             margin-bottom: 8px;
             color: #856404;
         }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>🔑 Essential 卡密系统</h1>
-            <p>安全 · 简单 · 高效</p>
+            <p>封禁管理 | 安全控制</p>
         </div>
         
         <div class="content">
-            <div class="form-group">
-                <label for="keyType">🎯 卡密类型：</label>
-                <select id="keyType">
-                    <option value="1day">24小时卡密</option>
-                    <option value="7day">7天卡密</option>
-                    <option value="30day">30天卡密</option>
-                    <option value="permanent">永久卡密</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="keyAmount">📊 生成数量：</label>
-                <input type="number" id="keyAmount" value="1" min="1" max="50">
-            </div>
-            
-            <button class="generate-btn" onclick="generateKeys()">
-                🚀 生成卡密
-            </button>
-            
-            <div id="result" class="result">
-                <h3>✅ 生成的卡密</h3>
-                <div id="generatedKeys" class="keys-list"></div>
-                <button class="copy-all-btn" onclick="copyAllKeys()">📋 复制所有卡密</button>
+            <!-- 卡密生成面板 -->
+            <div class="panel">
+                <h2>🎯 生成卡密</h2>
+                <div class="form-group">
+                    <label for="keyType">卡密类型：</label>
+                    <select id="keyType">
+                        <option value="1day">24小时卡密</option>
+                        <option value="7day">7天卡密</option>
+                        <option value="30day">30天卡密</option>
+                        <option value="permanent">永久卡密</option>
+                    </select>
+                </div>
                 
-                <div class="json-output" id="jsonOutput"></div>
+                <div class="form-group">
+                    <label for="keyAmount">生成数量：</label>
+                    <input type="number" id="keyAmount" value="1" min="1" max="20">
+                </div>
+                
+                <button class="btn btn-primary" onclick="generateKeys()">🚀 生成卡密</button>
+                
+                <div id="generateResult" class="result">
+                    <h3>✅ 生成的卡密</h3>
+                    <div id="generatedKeys" class="keys-list"></div>
+                    <button class="btn btn-success" onclick="copyAllKeys()">📋 复制所有卡密</button>
+                    <button class="btn btn-warning" onclick="showJSON()">📄 显示JSON数据</button>
+                    
+                    <div class="json-output" id="jsonOutput"></div>
+                </div>
             </div>
             
+            <!-- 封禁管理面板 -->
+            <div class="panel">
+                <h2>🔨 封禁管理</h2>
+                <div class="form-group">
+                    <label for="manageKey">卡密号码：</label>
+                    <input type="text" id="manageKey" placeholder="输入卡密 (KEY-XXXXXX)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="banReason">封禁原因：</label>
+                    <input type="text" id="banReason" placeholder="输入封禁原因">
+                </div>
+                
+                <button class="btn btn-danger" onclick="banKey()">⛔ 封禁卡密</button>
+                <button class="btn btn-success" onclick="unbanKey()">✅ 解封卡密</button>
+                <button class="btn btn-primary" onclick="checkKey()">🔍 检查状态</button>
+                
+                <div id="manageResult" class="result">
+                    <div id="keyInfo"></div>
+                </div>
+            </div>
+            
+            <!-- 使用说明 -->
             <div class="instructions">
                 <h3>📝 使用说明</h3>
                 <ol>
-                    <li>选择卡密类型和数量</li>
-                    <li>点击"生成卡密"按钮</li>
-                    <li>复制生成的卡密或整个JSON数据</li>
-                    <li>将复制的JSON内容更新到GitHub仓库的keys.json文件中</li>
-                    <li>Roblox游戏将自动读取最新的卡密数据</li>
+                    <li><strong>生成卡密</strong>: 选择类型和数量，点击生成</li>
+                    <li><strong>封禁管理</strong>: 输入卡密号码，可封禁/解封/检查</li>
+                    <li><strong>状态说明</strong>: 
+                        <span class="status-normal">正常</span> | 
+                        <span class="status-banned">封禁</span>
+                    </li>
+                    <li><strong>更新数据</strong>: 复制JSON内容，替换GitHub上的keys.json文件</li>
                 </ol>
             </div>
         </div>
